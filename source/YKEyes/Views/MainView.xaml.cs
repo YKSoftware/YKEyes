@@ -1,6 +1,6 @@
 ﻿namespace YKEyes.Views
 {
-    using YKToolkit.Controls;
+    using System.Windows;
 
     /// <summary>
     /// MainView.xaml の相互作用ロジック
