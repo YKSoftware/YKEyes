@@ -11,6 +11,7 @@
         Title="MainView"
         Width="800" Height="600"
         YKb:ShowAltTabMenuBehavior.IsEnabled="False"
+        YKb:SystemMenuBehavior.IsEnabled="False"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
