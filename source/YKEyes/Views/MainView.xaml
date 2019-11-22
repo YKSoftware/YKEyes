@@ -16,6 +16,7 @@
         YKb:SystemMenuBehavior.IsEnabled="False"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
