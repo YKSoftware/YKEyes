@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
         xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls"
+        xmlns:vw="clr-namespace:YKEyes.Views"
         xmlns:vm="clr-namespace:YKEyes.ViewModels"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -17,7 +18,8 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
-    <Grid>
-
-    </Grid>
+  <UniformGrid Columns="2">
+    <vw:Eye />
+    <vw:Eye Grid.Column="1" />
+  </UniformGrid>
 </Window>
