@@ -2,7 +2,6 @@
 {
     using System;
     using System.Windows;
-    using System.Windows.Shapes;
     using System.Windows.Threading;
     using YKEyes.Models;
     using YKEyes.ViewModels;
