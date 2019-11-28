@@ -28,7 +28,20 @@
             {
                 this._mouseHook.MouseMove += MouseMoveHook;
                 this._mouseHook.Hook();
+
+                this.SizeChanged += OnSizeChanged;
             }
+        }
+
+        /// <summary>
+        /// SizeChanged イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this._maxOffset.X = 0.4 * this.ActualWidth;
+            this._maxOffset.Y = 0.4 * this.ActualHeight;
         }
 
         /// <summary>
@@ -57,6 +70,11 @@
         /// マウスフックするためのオブジェクト
         /// </summary>
         private YKToolkit.Controls.MouseHook _mouseHook = new YKToolkit.Controls.MouseHook();
+
+        /// <summary>
+        /// 自分の中心座標から ±_maxOffset の範囲を可動範囲とします。
+        /// </summary>
+        private Point _maxOffset;
 
         /// <summary>
         /// 画面サイズ
