@@ -46,6 +46,14 @@
         }
 
         /// <summary>
+        /// 自分の中心座標を算出します。
+        /// </summary>
+        private Point CalcOrigin()
+        {
+            return this.PointToScreen(new Point(this.ActualWidth / 2, this.ActualHeight / 2));
+        }
+
+        /// <summary>
         /// マウスフックするためのオブジェクト
         /// </summary>
         private YKToolkit.Controls.MouseHook _mouseHook = new YKToolkit.Controls.MouseHook();
