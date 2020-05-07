@@ -17,10 +17,6 @@
         {
             InitializeComponent();
 
-            // プライマリスクリーンのサイズを保持
-            var primaryScreen = System.Windows.Forms.Screen.PrimaryScreen;
-            this._screenSize = new Size(primaryScreen.Bounds.Width, primaryScreen.Bounds.Height);
-
             // デザイン実行時に this.ActualWidth などにアクセスするとデザイナーで以下の例外が発生します。
             // System.InvalidOperationException
             //   この Visual は、PresentationSource に接続されていません。
@@ -122,11 +118,6 @@
         /// 自分の中心座標から ±_maxOffset の範囲を可動範囲とします。
         /// </summary>
         private Point _maxOffset;
-
-        /// <summary>
-        /// 画面サイズ
-        /// </summary>
-        private Size _screenSize;
 
         /// <summary>
         /// 比率 1/400
