@@ -31,7 +31,15 @@
         {
             base.OnStartup(e);
 
+            // プライマリスクリーンのタスクバーを除いたサイズを保持
+            var primaryScreen = System.Windows.Forms.Screen.PrimaryScreen;
+            var screenSize = new Size(primaryScreen.WorkingArea.Width, primaryScreen.WorkingArea.Height);
+
             var w = new MainView() { DataContext = new MainViewModel() };
+
+            // プライマリスクリーンの右下に配置
+            w.Left = screenSize.Width - w.Width;
+            w.Top = screenSize.Height - w.Height;
             w.Show();
         }
 
