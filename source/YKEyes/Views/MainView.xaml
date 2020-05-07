@@ -1,17 +1,47 @@
-﻿<YK:Window x:Class="YKEyes.Views.MainView"
-           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
-           xmlns:vm="clr-namespace:YKEyes.ViewModels"
-           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-           mc:Ignorable="d" 
-           d:DataContext="{d:DesignInstance {x:Type vm:MainViewModel}}"
-           Title="MainView"
-           Width="800" Height="600"
-           WindowStartupLocation="CenterScreen"
-           IsClosingConfirmationEnabled="False">
-    <Grid>
-
-    </Grid>
-</YK:Window>
+﻿<Window x:Class="YKEyes.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:YK="clr-namespace:YKToolkit.Controls;assembly=YKToolkit.Controls"
+        xmlns:YKb="clr-namespace:YKToolkit.Controls.Behaviors;assembly=YKToolkit.Controls"
+        xmlns:vw="clr-namespace:YKEyes.Views"
+        xmlns:vm="clr-namespace:YKEyes.ViewModels"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d" 
+        d:DataContext="{d:DesignInstance {x:Type vm:MainViewModel}}"
+        Title="MainView"
+        Width="160" Height="160"
+        MinWidth="100" MaxWidth="600"
+        YKb:ShowAltTabMenuBehavior.IsEnabled="False"
+        YKb:SystemMenuBehavior.IsEnabled="False"
+        ShowInTaskbar="False"
+        Topmost="True"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+  <Grid x:Name="MainContainer" Background="#01000000">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <vw:Eye />
+    <vw:Eye Grid.Column="1" />
+    <Thumb Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta">
+      <Thumb.Style>
+        <Style TargetType="{x:Type Thumb}">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMouseOver, ElementName=MainContainer}" Value="False">
+              <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </Thumb.Style>
+      <Thumb.Template>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <ResizeGrip />
+        </ControlTemplate>
+      </Thumb.Template>
+    </Thumb>
+  </Grid>
+</Window>
