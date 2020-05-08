@@ -30,5 +30,10 @@
             this.Width = width;
             this.Height = height;
         }
+
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
