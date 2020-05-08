@@ -27,6 +27,34 @@
     </Grid.ColumnDefinitions>
     <vw:Eye />
     <vw:Eye Grid.Column="1" />
+
+    <!-- 閉じる -->
+    <Button Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Click="OnCloseButtonClick">
+      <Button.Style>
+        <Style TargetType="{x:Type Button}">
+          <Setter Property="Background" Value="Red" />
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="{x:Type Button}">
+                <Border Background="{TemplateBinding Background}" Width="18" Height="18">
+                  <TextBlock Text="X" Foreground="White" FontSize="14" TextAlignment="Center" VerticalAlignment="Center" />
+                </Border>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding IsMouseOver, ElementName=MainContainer}" Value="False">
+              <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="Salmon" />
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </Button.Style>
+    </Button>
+
+    <!-- リサイズハンドル -->
     <Thumb Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta">
       <Thumb.Style>
         <Style TargetType="{x:Type Thumb}">

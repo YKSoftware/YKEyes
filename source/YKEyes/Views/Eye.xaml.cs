@@ -37,8 +37,8 @@
         /// <param name="e">イベント引数</param>
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            this._maxOffset.X = 0.25 * this.ActualWidth;
-            this._maxOffset.Y = 0.25 * this.ActualHeight;
+            this.pupil.Width = 0.2 * this.ActualWidth;
+            this.pupil.Height = this.pupil.Width;
         }
 
         /// <summary>
@@ -81,20 +81,35 @@
             else
             {
                 // 楕円の径と補助計算
-                var a = this.ActualWidth / 2.0;
-                var b = this.ActualHeight / 2.0;
+                // 楕円の中心座標を原点として考えたとき、
+                //   x^2/a^2 + y^2/b^2 = 1
+                //                   y = cx
+                // の交点の座標は
+                //   x = ± ab / (a^2 c^2 + b^2)^(1/2)
+                //   y = cx
+                // で表される。
+
+                // マウス座標から楕円を縮小し、
+                // その楕円と直線との交点をそのまま瞳の位置とする。
+
+                // というわけでまず楕円を縮小するために径を考えます。
+                // 境界線上に重ならないようにするためのマージンを含む最大値に比率を掛け算します。
+                var ratio = 1.0 / Math.Sqrt(_ratio);
+                var margin = this.pupil.Width;
+                var a = (this.ActualWidth / 2.0 - margin) * Math.Min(1.0, Math.Abs(ratio * diff.X));
+                var b = (this.ActualHeight / 2.0 - margin) * Math.Min(1.0, Math.Abs(ratio * diff.Y));
+
+                // 直線の傾き
                 var c = diff.Y / diff.X;
+
+                // 縮小した楕円と直線の交点を求めます。
                 var x = a * b / Math.Sqrt(a * a * c * c + b * b);
                 if (mouse.X < origin.X) x *= -1;
                 var y = c * x;
-                offset = new Vector(x * Math.Abs(diff.X * _ratio), y * Math.Abs(diff.Y * _ratio));
-            }
 
-            // オフセットの限界値確認
-                 if (offset.X > 0) offset.X = Math.Min(offset.X, this._maxOffset.X);
-            else if (offset.X < 0) offset.X = Math.Max(offset.X, -this._maxOffset.X);
-                 if (offset.Y > 0) offset.Y = Math.Min(offset.Y, this._maxOffset.Y);
-            else if (offset.Y < 0) offset.Y = Math.Max(offset.Y, -this._maxOffset.Y);
+                // 交点の座標そのものがオフセット量となります。
+                offset = new Vector(x, y);
+            }
 
             // オフセットする
             this.PupilOffset.X = offset.X;
@@ -115,13 +130,8 @@
         private YKToolkit.Controls.MouseHook _mouseHook = new YKToolkit.Controls.MouseHook();
 
         /// <summary>
-        /// 自分の中心座標から ±_maxOffset の範囲を可動範囲とします。
+        /// 比率
         /// </summary>
-        private Point _maxOffset;
-
-        /// <summary>
-        /// 比率 1/400
-        /// </summary>
-        private const double _ratio = 0.0025;
+        private const double _ratio = 20000;
     }
 }
