@@ -99,13 +99,22 @@
                 var a = (this.ActualWidth / 2.0 - margin) * Math.Min(1.0, Math.Abs(ratio * diff.X));
                 var b = (this.ActualHeight / 2.0 - margin) * Math.Min(1.0, Math.Abs(ratio * diff.Y));
 
-                // 直線の傾き
+                // 直線の傾きと切片
+                // 切片は楕円の中心から若干ずらすとよりリアルに見えます。
+                // マウスが楕円の中心より上にある場合はやや上、下にある場合はやや下にずらします。
+                // マウスが中心付近にある場合は楕円の中心を切片とします。
                 var c = diff.Y / diff.X;
+                var d = b / 3.0;
+                     if (Math.Abs(diff.Y) < d) d = 0.0;
+                else if (mouse.Y < origin.Y) d = -b / 3.0;
 
                 // 縮小した楕円と直線の交点を求めます。
-                var x = a * b / Math.Sqrt(a * a * c * c + b * b);
-                if (mouse.X < origin.X) x *= -1;
-                var y = c * x;
+                var numerator1 = -2 * a * a * c * d;
+                var numerator2 = 2 * a * b * Math.Sqrt(a * a * c * c + b * b - d * d);
+                if (mouse.X < origin.X) numerator2 *= -1;
+                var denominator = 2 * (a * a * c * c + b * b);
+                var x = (numerator1 + numerator2) / denominator;
+                var y = c * x + d;
 
                 // 交点の座標そのものがオフセット量となります。
                 offset = new Vector(x, y);
