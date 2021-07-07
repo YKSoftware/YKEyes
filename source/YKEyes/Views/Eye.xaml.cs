@@ -23,11 +23,19 @@
             // このため、そもそも問題が発生しないようにマウスフックさせないようにします。
             if (!DesignerProperties.GetIsInDesignMode(this))
             {
-                this._mouseHook.MouseMove += MouseMoveHook;
-                this._mouseHook.Hook();
-
                 this.SizeChanged += OnSizeChanged;
+                this.Loaded += OnLoaded;
             }
+        }
+
+        /// <summary>
+        /// Loaded イベントハンドラ
+        /// </summary>
+        /// <param name="sender">イベント発行元</param>
+        /// <param name="e">イベント引数</param>
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            MouseHook.Current.MouseMove += MouseMoveHook;
         }
 
         /// <summary>
@@ -132,11 +140,6 @@
         {
             return this.PointToScreen(new Point(this.ActualWidth / 2, this.ActualHeight / 2));
         }
-
-        /// <summary>
-        /// マウスフックするためのオブジェクト
-        /// </summary>
-        private YKToolkit.Controls.MouseHook _mouseHook = new YKToolkit.Controls.MouseHook();
 
         /// <summary>
         /// 比率
